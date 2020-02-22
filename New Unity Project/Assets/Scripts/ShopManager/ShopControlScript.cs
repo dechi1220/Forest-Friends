@@ -30,9 +30,14 @@ public class ShopControlScript : MonoBehaviour {
 
 	public void buyRifle()
 	{
-		moneyAmount -= 5;
-		PlayerPrefs.SetInt ("IsRifleSold", 1);
+        if (moneyAmount >=5)
+        {
+            moneyAmount -= 5;
+            PlayerPrefs.SetInt("IsRifleSold", 1);
+        }
+
 	
+
 	}
 
 	public void exitShop()

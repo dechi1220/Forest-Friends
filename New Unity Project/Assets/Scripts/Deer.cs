@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Deer : MonoBehaviour
 {
+
+  
     //[Header("好感度"), Range(0, 100)]
     //public int friendship = 0;
     [Header("遊戲管理器")]
@@ -11,6 +13,7 @@ public class Deer : MonoBehaviour
 
     public GameObject goScore, goGM;
 
+    public Transform Transform;   //還沒確定，想抓動物的座標 翻轉X軸
 
 
     //事件 : 觸發離開 - 物件離開觸發區域執行一次
@@ -28,7 +31,40 @@ public class Deer : MonoBehaviour
    
     }
 
+    Rigidbody2D rig;
 
-    
+    private void Awake()
+    {
+        rig = GetComponent<Rigidbody2D>();
+    }
 
+    public IEnumerator EatFood()
+    {
+        // 往左走
+        while (transform.position.x > -1f)
+        {
+            //速度
+            rig.AddForce(transform.right * -2);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+        //剛體睡著
+        rig.Sleep();
+
+        yield return new WaitForSeconds(1f);
+        //醒來
+        rig.WakeUp();
+
+        while (transform.position.x < 1f)
+        {    
+
+
+
+            rig.AddForce(transform.right * 2);
+        
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        rig.Sleep();
+    }
 }

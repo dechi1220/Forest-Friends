@@ -52,8 +52,11 @@ public class GameManager : MonoBehaviour
 
         //螢幕.設定解析度(寬,高,是否全螢幕)
         Screen.SetResolution(450, 800, false);
+
+
        textScore.text = PlayerPrefs.GetInt("好感度分數介面").ToString();
         score = PlayerPrefs.GetInt("目前好感度", score);
+
 
 
         isRifleSold = PlayerPrefs.GetInt("IsRifleSold");
@@ -63,11 +66,19 @@ public class GameManager : MonoBehaviour
         else
             Food.SetActive(false);
 
+        EatFood();
+    }
+
+    private void EatFood()
+    {
+        if (Food.activeInHierarchy)
+        {
+            StartCoroutine(FindObjectOfType<Deer>().EatFood());
+        }
     }
 
     void Update()
     {
-
         moneyAmountText.text = "Money: " + moneyAmount.ToString() + "$";
     }
     }
